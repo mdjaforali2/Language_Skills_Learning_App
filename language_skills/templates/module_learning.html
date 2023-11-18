@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ module.title }} Learning{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>{{ module.title }} Learning</h1>
+
+        <!-- Audio Player -->
+        <audio controls>
+            <source src="{{ module_audio }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- Module Questions Form -->
+        <form id="moduleQuestionsForm" method="post" action="{% url 'submit_answers' module.id %}">
+            {% csrf_token %}
+            {% if module_questions %}
+                {% for question in module_questions %}
+                    <div class="question-card {% if question.question_type == 'fill_in_the_gaps' %}fill-in-the-gaps-question{% endif %}">
+                        <p>Question {{ forloop.counter }}: {{ question.question }}</p>
+                        {% if question.question_type == 'multiple_choice' %}
+                            <div class="checkbox-options">
+                                {% for choice in question.choices %}
+                                    <label>
+                                        <input type="checkbox" name="user_answer_{{ question.id }}" value="{{ choice }}">
+                                        {{ choice }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <input type="text" name="user_answer_{{ question.id }}" required autocomplete="off">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="button" onclick="validateForm()">Submit Answers</button>
+                <p id="errorMessage" style="color: red;"></p>
+            {% else %}
+                <p class="no-questions">No questions available for this module.</p>
+            {% endif %}
+        </form>
+
+        <script>
+            function validateForm() {
+                // Check if all required fields are filled out
+                var form = document.getElementById("moduleQuestionsForm");
+                var inputs = form.querySelectorAll('input[required]');
+                var isValid = true;
+
+                for (var i = 0; i < inputs.length; i++) {
+                    if (!inputs[i].value.trim()) {
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                if (isValid) {
+                    // If all required fields are filled, submit the form
+                    form.submit();
+                } else {
+                    // If not, display an error message
+                    document.getElementById("errorMessage").innerText = "Please answer all questions.";
+                }
+            }
+        </script>
+    </div>
+{% endblock %}

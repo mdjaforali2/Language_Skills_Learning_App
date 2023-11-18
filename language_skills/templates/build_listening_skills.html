@@ -1,0 +1,16 @@
+<!-- language_skills/templates/build_listening_skills.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Listening Skills Modules{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Listening Skills Modules</h1>
+        <div class="list-group">
+            {% for module in listening_modules %}
+                <a href="{% url 'module_learning' module_id=module.id %}" class="list-group-item list-group-item-action">{{ module.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

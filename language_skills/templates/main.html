@@ -1,0 +1,44 @@
+<!-- main.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Main Page{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="jumbotron text-center">
+            <h1 class="display-4">Welcome to the Language Skills App</h1>
+            <p class="lead">Build both your listening and speaking skills with our interactive modules.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Build Listening Skills</h5>
+                        <p class="card-text">Practice your listening skills with the following modules:</p>
+                        <ul class="list-group">
+                            {% for module in listening_modules %}
+                                <li class="list-group-item"><a href="{{ module.link }}">{{ module.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Build Speaking Skills</h5>
+                        <p class="card-text">Practice your speaking skills with the following modules:</p>
+                        <ul class="list-group">
+                            {% for module in speaking_modules %}
+                                <li class="list-group-item"><a href="{{ module.link }}">{{ module.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

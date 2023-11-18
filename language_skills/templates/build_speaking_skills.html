@@ -1,0 +1,16 @@
+<!-- language_skills/templates/build_speaking_skills.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Speaking Skills Modules{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Speaking Skills Modules</h1>
+        <div class="list-group">
+            {% for module in speaking_modules %}
+                <a href="{{ module.link }}" class="list-group-item list-group-item-action">{{ module.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

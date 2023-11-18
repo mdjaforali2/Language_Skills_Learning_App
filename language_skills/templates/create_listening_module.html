@@ -1,0 +1,18 @@
+<!-- language_skills/templates/create_listening_module.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Create Listening Module{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Create Listening Module</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+        
+    </div>
+{% endblock %}
